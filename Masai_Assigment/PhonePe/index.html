@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+
+<body>
+    <div id="container">
+        <img src="https://storage.googleapis.com/designify-images-tmp/93fbe8fe-ab75-48f0-a549-03e146ea1cb9.png" alt="">
+        <h1>PhonePe Processing Ui</h1>
+
+    </div>
+    <h2>Please Wait, transation is processing</h2>
+    <img src="https://i.gifer.com/BvMu.gif" alt="">
+
+
+
+    <script>
+        function bankServer() {
+            return true
+        }
+        let promisses = new Promise(function (resolve, reject) {
+            let pin = bankServer()
+
+            setTimeout(function () {
+                if (pin) {
+                    resolve("Payment Successful")
+                } else {
+                    reject("Payment Failed")
+                }
+            },3000)
+
+
+        })
+       
+
+        promisses.then(function(resolve){
+            window.location.href= "PhonePaySuccessfullUI.html"
+        })
+
+        promisses.catch(function(reject){
+            window.location.href= "PhonePayFaildUI.html"
+        })
+
+
+    </script>
+
+</body>
+
+</html>

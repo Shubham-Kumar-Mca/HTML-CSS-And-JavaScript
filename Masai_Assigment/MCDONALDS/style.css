@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 70px;
+    padding: 10px 0;
+    box-shadow: 0px 1px 10px 3px rgb(239, 234, 234);
+}
+#navbar>div:first-child>img{
+    height: 90px;
+    cursor: pointer;
+}
+#navbar>div:nth-child(2){
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+}
+#navbar>div:nth-child(2)>div{
+    font-size: 20px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+#navbar>div:last-child>button{
+    padding: 15px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #db3545;
+    color: #fff;
+    cursor: pointer;
+}
+#slideimg{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+} 
+#container{
+    width: 80%;
+    margin:50px auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(4,1fr);
+    gap: 10px;
+}
+#container>div{
+    box-shadow: 0px 0px 10px 1px rgb(218, 216, 216);
+    border-radius: 10px;
+}
+#container>div>img{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+#container>div>h2{
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+}
+#container>div>p{
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+#slide>h2{
+    text-align: center;
+    color: #fff;
+    margin-top: -30px;
+    display: none;
+}
+#slide>h1{
+    text-align: center;
+   
+}

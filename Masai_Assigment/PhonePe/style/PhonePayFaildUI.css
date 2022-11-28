@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family: 'Nanum Gothic', sans-serif; */
+}
+body{
+    background-color: #413653;
+}
+#container{
+    width: 60%;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#container>img{
+    border-radius: 50% 50%;
+    background-color: white;
+    height:80px;
+}
+h1{
+    font-size: 55px;
+    color: white;
+    padding-bottom: 10px;
+}
+#mainFaild{
+    width: 50%;
+    border: 1px solid #8400c1;
+    margin: 50px auto;
+    background-color: #e2e2e2;
+}
+#mainFaild>div:first-child{
+    background-color: #eb5843;
+    padding: 30px; 
+}
+#mainFaild>div:first-child>div{
+    width: 50%;
+    margin: auto;
+}
+#mainFaild>div:first-child>div:first-child>img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#mainFaild>div:first-child>div:last-child>h2{
+    margin-top: 5px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: normal;
+    margin-bottom: 5px;
+    text-align: center;
+}
+#mainFaild>div:first-child>div:last-child>p{
+    line-height: 25px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}
+#mainFaild>div:first-child>div:last-child>p:last-child{
+    color: rgb(225, 220, 220);
+    font-size: 16px;
+}
+p{
+    color: #8e8a8a;
+    font-style: italic;
+    font-size: 20px;
+}
+
+/* transactio ID */
+#transactioID{
+    background-color: #fff;
+    padding: 20px;
+}
+#transactioID>p{
+    font-size: 20px;
+}
+#transactioID>div{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+#transactioID>div>p{
+    color: #8400c1;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Bill Paid */
+
+#billPaid{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 20px;
+}
+#billPaid>div{
+    display: flex;
+    margin-top: 10px;
+}
+#billPaid>div>div:first-child{
+    background-color: #222a76;
+    color: #fff;
+    width: 10%;
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+    border-radius: 50%;
+    padding: 16px 0;
+    margin-right: 20px;
+}
+
+#billPaid>div>div:nth-child(2){
+    width: 45%;
+}
+
+#billPaid>div>div:last-child{
+   margin-left: auto;
+}
+
+#billPaid>div:last-child>button{
+    padding: 8px 20px;
+    margin-left: auto;
+    font-weight: bold;
+    background-color: #8400c1;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+} 
+
+/* Debited From */
+#debitedFrom{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 20px;
+}
+#debitedFrom>div{
+    display: flex;
+    margin-top: 5px;
+}
+
+#debitedFrom>div>div:first-child>img{
+    width: 50px;
+}
+#debitedFrom>div>div:nth-child(2){
+    margin-left: 15px;
+}
+#debitedFrom>div>div:last-child{
+    margin-left: auto;
+}
+
+/* Support */
+#support{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+}
+#support>div>img{
+    width: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+#support>div:last-child>h2{
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#mainFaild:last-child>button{
+    margin-top: 10px;
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #fff;
+    color: #8400c1;
+    border: none;
+    cursor: pointer;
+}

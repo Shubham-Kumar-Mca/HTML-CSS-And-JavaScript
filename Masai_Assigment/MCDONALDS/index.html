@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+</head>
+
+<body>
+    <div id="navbar">
+        <div>
+            <img src="https://www.mcdonalds.com/content/dam/sites/usa/nfl/icons/arches-logo_108x108.jpg" alt="">
+        </div>
+        <div>
+            <div>Menu</div>
+            <div>Download App</div>
+            <div>MyMcDonald's Rewards</div>
+            <div>Exclusive Deals</div>
+            <div>About Our Food</div>
+            <div>Locate</div>
+        </div>
+        <div>
+            <button id="button">Order Now</button>
+        </div>
+    </div>
+    <div id="slide">
+        <img src="https://s3.amazonaws.com/html5.powershow.com/9079521/data/img1.jpg" id="slideimg" alt="">
+        <h2 id="orderPlaced">Please Wait Your Order is Placed in 5 Secound....</h2>
+        <h2 id="orderSomething">Please give the order Something...</h2>
+        <h1 id="orderPlac"> </h1>
+    </div>
+
+    <div id="container"></div>
+
+
+
+    <script>
+        let items = [
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/Header_MediumStrawberryWatermelonSlushie_Glass_832x472:1-4-product-tile-desktop", name: "Strawberry Watermelon Slushie", price: 250, order:200 },
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/Header_MediumTropicalMangoSlushie_Glass_832x472:1-4-product-tile-desktop", name: "Mango Slushie", price: 250, order: 201},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Coca-Cola-Classic-Small-1:1-4-product-tile-desktop", name: "Coca-cola", price: 150, order: 202},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Dr-Pepper-Small-1:1-4-product-tile-desktop", name: "Dr Pepper", price: 200, order: 203},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Bacon-Egg-Cheese-Biscuit-Regular-Size-Biscuit-1:1-4-product-tile-desktop", name: "Bacon, Egg & Cheese Biscuit", price: 100, order:204 },
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Egg-McMuffin-1:1-4-product-tile-desktop", name: "Egg McMuffin", price: 200, order: 205},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Bacon-Egg-Cheese-McGriddles:1-4-product-tile-desktop", name: "Bacon, Egg & Cheese McGriddles", price: 200, order: 206},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Sausage-McGriddles:1-4-product-tile-desktop", name: "Sausage McGriddles", price: 250, order: 207},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-caramel-macchiato:1-4-product-tile-desktop", name: "Caramel Macchiato", price: 300, order: 208},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-iced-caramel-macchiato-1:1-4-product-tile-desktop", name: "Iced Caramel Macchiato", price: 300, order: 209},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-americano-1:1-4-product-tile-desktop", name: "Americano", price: 200, order: 210},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-McCafe-Hot-Chocolate-Medium:1-4-product-tile-desktop", name: "Hot Chocolate", price: 300, order: 211},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-spicy-deluxe-crispy-chicken-sandwich:1-4-product-tile-desktop", name: "Spicy Deluxe Crispy Chicken Sandwich", price: 300, order: 212},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-deluxe-crispy-chicken-sandwich:1-4-product-tile-desktop", name: "Deluxe Crispy Chicken Sandwich", price: 400, order: 213},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-spicy-crispy-chicken-sandwich:1-4-product-tile-desktop", name: "Crispy Chicken Sandwich", price: 400, order: 214},
+            { image: "https://s7d1.scene7.com/is/image/mcdonalds/s-mcdonalds-Big-Breakfast-Regular-Size-Biscuit-1:1-4-product-tile-desktop", name: "Big Breakfast", price: 300, order: 215},
+        ]
+        let container = document.getElementById("container");
+
+        items.forEach(function (element) {
+            let div = document.createElement("div");
+
+            let img = document.createElement("img");
+            img.src = element.image;
+
+            let h2Tag = document.createElement("h2");
+            h2Tag.innerText = element.name;
+
+            let checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("class", "myCheckbox");
+            checkbox.style.width = "20px"
+            checkbox.style.height = "20px"
+            checkbox.style.marginLeft = "auto"
+            checkbox.style.marginRight = "auto"
+            checkbox.style.display = "block"
+
+            let Ptag = document.createElement("p");
+            Ptag.innerText = "₹ " + element.price;
+            Ptag.style.fontSize = "23px"
+
+
+            div.append(img, h2Tag, checkbox, Ptag);
+            container.append(div)
+
+        })
+
+        document.getElementById("button").addEventListener("click", myOrder);
+        let h2Tag1 = document.getElementById("orderPlaced")
+        let h2Tag2 = document.getElementById("orderSomething")
+
+
+        function myOrder() {
+            let img = document.getElementById("slideimg")
+            img.style.display = "none"
+
+
+            let checkbox = document.getElementsByClassName("myCheckbox")
+
+
+
+            let promi = new Promise(function (resolve, reject) {
+                let ord = true;
+                setTimeout(function () {
+                    if (ord) {
+                        img.src = "https://thumbs.gfycat.com/AggravatingInformalGrayling-size_restricted.gif";
+                        img.style.display = "block"
+                        h2Tag1.style.display = "block"
+                        document.getElementById("orderPlac").innerText = `Your Order Id is :- 0015`
+                       
+
+
+                    } else {
+                        img.src = "https://s3.amazonaws.com/html5.powershow.com/9079521/data/img1.jpg"
+                        img.style.display = "block"
+                        h2Tag2.style.display = "block"
+                    }
+
+                }, 1000)
+            })
+
+            
+        }
+
+    </script>
+</body>
+
+</html>
