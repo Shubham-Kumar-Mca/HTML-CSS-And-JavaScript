@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDENT MANAGEMENT SYSTEM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            background-color: #f3f4f6;
+        }
+
+        /*Navbar CSS Strat*/
+        #navbar {
+            height: 80px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 1px 10px 1px rgb(228, 225, 225);
+        }
+
+        p {
+            font-size: 23px;
+        }
+
+        h1 {
+            font-family: sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            border: none;
+            border-radius: 3px;
+            background-color: #db3545;
+        }
+        #displayBatch{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        /*Navbar CSS End*/
+
+        /* Form CSS Start */
+        form {
+            width: 30%;
+            margin: 30px auto;
+            font-family: sans-serif;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 10px 1px rgb(228, 225, 225);
+        }
+
+        label {
+            font-size: 22px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 13px;
+            outline: none;
+            font-size: 18px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            margin-top: 15px;
+            font-size: 22px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background-color: #db3545;
+            color: #fff;
+        }
+
+        /* FORM CSS END  */
+       
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+        <div id="displayBatch">
+            <!-- <p></p> -->
+        </div>
+        <div>
+            <h1>ADD STUDENT DETAILS</h1>
+        </div>
+        <div>
+            <button>
+                <a href="dashbord.html" target="_blank">Dashboard</a>
+            </button>
+        </div>
+    </div>
+
+    <form>
+        <label>Name</label><br>
+        <input type="text" placeholder="Enter Student Name" id="name"><br>
+
+        <label>Course</label><br>
+        <input type="text" placeholder="Enter Student Course Name" id="course"><br>
+
+        <label>Unit</label><br>
+        <input type="number" placeholder="Enter Student Unit Name" id="unit"><br>
+
+        <label>Image</label><br>
+        <input type="text" placeholder="Enter Student Image URL" id="image"><br>
+
+        <label>Batch</label><br>
+        <input type="text" placeholder="Enter Student Batch Name (Web-19)" id="batch"><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <script>
+        function Student_Detail(n, c, u, i, b) {
+            this.Student_Name = n;
+            this.Course = c;
+            this.Unit = u;
+            this.Iamge = i;
+            this.Batch = `FT-${b}`;
+        }
+
+        document.querySelector("form").addEventListener("submit", storeDataInLS)
+        let data = JSON.parse(localStorage.getItem("studentInfo")) || [];
+
+        function storeDataInLS(event) {
+            event.preventDefault()
+            let name = document.querySelector("#name").value;
+            let course = document.querySelector("#course").value;
+            let unit = document.querySelector("#unit").value;
+            let image = document.querySelector("#image").value;
+            let batch = document.querySelector("#batch").value;
+
+            let details = new Student_Detail(name, course, unit, image, batch);
+            data.push(details)
+            localStorage.setItem("studentInfo", JSON.stringify(data));
+            window.location.reload()
+        }
+
+        function count(data) {
+            let obj = {};  
+            for (let i = 0; i < data.length; i++) {
+                for (let key in data[i]) {
+                    if (key == 'Batch') {
+                        let nm = data[i][key]
+                        obj[nm] = obj[nm]?obj[nm]+1:1;
+                    }
+                }
+            }
+            
+            let displayBatch = document.querySelector("#displayBatch")
+
+            p1Tag = document.createElement("p")
+            p2Tag = document.createElement("p")
+            p3Tag = document.createElement("p")
+            
+            for(let key in obj){
+                if(obj[key]==1){
+                    p1Tag.innerText = `${key} - ${obj[key]} |`;
+                }else if(2<obj[key]){
+                    p2Tag.innerText = `${key} - ${obj[key]}`;
+                }else{
+                    p3Tag.innerText = `| ${key} - ${obj[key]}`;
+                }
+               
+            }
+            displayBatch.append(p1Tag,p2Tag,p3Tag)
+        }
+        count(data) 
+    </script>
+</body>
+
+</html>
