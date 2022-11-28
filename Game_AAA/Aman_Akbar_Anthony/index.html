@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMAR AKBAR ANTHONY</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Acme&family=Roboto:ital,wght@0,300;0,500;0,700;0,900;1,500;1,900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;  
+        }
+        body{
+            background-color: #0a3d62;
+        }
+        #container{
+            width: 80%;
+            margin: 50px auto;
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #container>div{
+            width: 25%;
+            padding: 20px;
+            background-color:#e2e2e2;
+            line-height: 30px;
+            border-radius: 10px;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #container>div>p{
+            word-spacing: 10px;
+            font-size: 20px;
+           
+        }
+        #container>div>button{
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="amar">
+            <h1>Amar</h1>
+            <p id="amarSkill">Skill :- Singer</p>
+            <p>Lives in :- Goa</p>
+            <button onclick="swapAmarToAkbar()">Borrow Akbar Skill</button>
+            <button onclick="swapAmarToanthony()">Borrow Anthony Skill</button>
+        </div>
+        
+        <div id="akbar">
+            <h1>Akbar</h1>
+            <p id="akbarSkill">Skill :- Chef</p>
+            <p>Lives in :- Mumbai</p>
+            <button onclick="swapAmarToAkbar()">Borrow Amar Skill</button>
+            <button onclick="swapAkbarToAnthony()">Borrow Anthony Skill</button>
+        </div>
+        
+        <div id="anthony">
+            <h1>Anthony</h1>
+            <p id="anthonySkill">Skill :- Magician</p>
+            <p>Lives in :- Kashmir</p>
+            <button onclick="swapAmarToanthony()">Borrow Amar Skill</button>
+            <button onclick="swapAkbarToAnthony()">Borrow Akbar Skill</button>
+        </div>
+    </div>
+    
+
+    <script>
+
+        let amarSkill = document.getElementById("amarSkill");
+        let akbarSkill = document.getElementById("akbarSkill");
+        let anthonySkill = document.getElementById("anthonySkill");
+
+        const Akbar = {
+            Skill : akbarSkill,
+            swapSkill : function(){
+                return (this.Skill.innerText);
+            }
+        }
+        const Amar = {
+            Skill : amarSkill,
+            swapSkill : function(){
+                return (this.Skill.innerText);
+            }           
+        }
+        const Anthony = {
+            Skill : anthonySkill,
+            swapSkill : function(){
+                return (this.Skill.innerText);
+            }
+        }
+
+        function swapAmarToAkbar(){
+            let x = Akbar.swapSkill.call(Amar);
+            amarSkill.innerText = Amar.swapSkill.call(Akbar);
+            akbarSkill.innerText = x;
+
+        }
+        
+        function swapAkbarToAnthony(){
+            let x = Akbar.swapSkill.call(Anthony);
+            anthonySkill.innerText = Anthony.swapSkill.call(Akbar);
+            akbarSkill.innerText = x;
+
+        }
+
+        function swapAmarToanthony(){
+            let x = Anthony.swapSkill.call(Amar);
+            amarSkill.innerText = Amar.swapSkill.call(Anthony);
+            anthonySkill.innerText = x;
+        }
+
+    </script>
+</body>
+</html>
