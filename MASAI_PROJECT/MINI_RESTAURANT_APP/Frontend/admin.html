@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="add-item">
+        <input type="text" placeholder="Image URL" id="imgage"><br>
+        <input type="text" placeholder="Title" id="title"><br>
+        <input type="text" placeholder="Price" id="price"><br>
+        <input type="text" placeholder="Description" id="description"><br>
+        <input type="text" placeholder="Ratings" id="ratings"><br>
+        <button onclick="addItem()">Submit</button>
+    </div>
+
+
+    <script>
+        class Item{
+            constructor(i,t,d,p,r){
+                this.image = i;
+                this.title = t;
+                this.description = d;
+                this.price = p;
+                this.rating = r;
+            }
+        }
+        function addItem(){
+            image = document.getElementById("imgage").value;
+            title = document.getElementById("title").value;
+            description = document.getElementById("description").value;
+            price = +document.getElementById("price").value;
+            rating = +document.getElementById("ratings").value;
+
+            let data = new Item(image,title,description,price,rating);
+            fetch("http://127.0.0.1:3000/api/items",{
+                method:'POST',
+                body:JSON.stringify(data),
+                headers:{
+                    'Content-Type':'application/json',
+                },
+            })
+        }
+    </script>
+</body>
+</html>

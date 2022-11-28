@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "abc"
+    },
+    {
+      "id": 2,
+      "name": "xyz"
+    }
+  ],
+  "items": [
+    {
+      "image": "https://b.zmtcdn.com/data/dish_photos/f4c/869e36f525b9b5a6094d797d2f129f4c.jpg?fit=around|130:130&crop=130:130;*,*",
+      "title": "Chicken Biryani",
+      "description": "Testy",
+      "price": 239,
+      "rating": 4,
+      "id": 1
+    },
+    {
+      "image": "https://b.zmtcdn.com/data/dish_photos/f4c/869e36f525b9b5a6094d797d2f129f4c.jpg?fit=around|130:130&crop=130:130;*,*",
+      "title": "Chicken Biryani",
+      "description": "Testy",
+      "price": 239,
+      "rating": 4,
+      "id": 2
+    },
+    {
+      "image": "https://b.zmtcdn.com/data/dish_photos/b31/aed81716f4c6f6dc3a633b648af07b31.jpg?fit=around|130:130&crop=130:130;*,*",
+      "title": "Mutton Biryani",
+      "description": "Testy",
+      "price": 319,
+      "rating": 4,
+      "id": 3
+    },
+    {
+      "image": "https://b.zmtcdn.com/data/dish_photos/5f1/e2fe3d9ee3e8cf385d149e01a88985f1.jpg?fit=around|130:130&crop=130:130;*,*",
+      "title": "Chicken Curry",
+      "description": "Testy",
+      "price": 259,
+      "rating": 4.5,
+      "id": 4
+    },
+    {
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRfpZB0_3qGRT0vx7Jlw662goIgQc9en4esg&usqp=CAU",
+      "title": "Pasta",
+      "description": "no testy",
+      "price": 200,
+      "rating": 2,
+      "id": 5
+    }
+  ]
+}
