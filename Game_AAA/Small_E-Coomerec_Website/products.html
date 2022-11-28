@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-COMMERCE-II</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #nav{
+            height: 60px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 1px 0px 5px 0px rgb(220, 218, 218);
+        }
+        #total{
+            text-align: center;
+            font-family: sans-serif;
+            margin-top: 20px;
+            font-size: 25px;
+        }
+        #AllCard{
+            width: 80%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            /* grid-template-rows: 1fr; */
+            gap: 20px;
+        }
+        #AllCard>div{
+            box-shadow: 1px 1px 8px 0 rgb(215, 213, 213);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0;
+        }
+        #AllCard>div>img{
+            width: 100%;
+        }
+        #AllCard>div>h2{
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #AllCard>div>p{
+            font-size: 20px;
+            padding-left: 10px;
+        }
+        button{
+            font-size: 20px;
+            padding: 5px 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div id="nav">
+       <h1> E-COMMERCE - II</h1>
+    </div>
+
+    <p id="total">Total Number of Product  = </p>
+
+    <div id="AllCard">
+        <!-- Append your cards here -->
+    </div>
+
+
+    <script>
+        let AlldataFromLS = JSON.parse(localStorage.getItem("Products"))||[];
+        document.querySelector("#total").innerText = "Total Number of Product  = " + AlldataFromLS.length;
+    
+        display(AlldataFromLS);
+
+        function display(AlldataFromLS){
+            AlldataFromLS.forEach((element,index) => {
+                let productName = element.Product_Name;
+                let img = element.Image;
+                let category = element.Category;
+                let gender = element.Gender;
+                let price = element.Price;
+                let sold = element.sold;
+
+                let cardDiv = document.createElement("div");
+
+                let image = document.createElement("img");
+                image.setAttribute("src",img);
+
+                let h2Tag = document.createElement("h2");
+                h2Tag.innerText = productName;
+
+                let p1Tag = document.createElement("p");
+                p1Tag.innerText = "Category :- " + category;
+
+                let p2Tag = document.createElement("p");
+                p2Tag.innerText = "Gender :- " + gender;
+                
+                let p3Tag = document.createElement("p");
+                p3Tag.innerText = "Price :- " + price;
+
+                let removeBtn = document.createElement("button");
+                removeBtn.innerText = "Remove"; 
+                removeBtn.style.border = "1px solid #333"
+
+                removeBtn.addEventListener("click",function(){
+                    removeFunction(index)
+                });
+                
+                let soldBtn = document.createElement("button");
+                soldBtn.innerText = "Sold";
+                soldBtn.style.border = "1px solid #333"
+
+                soldBtn.addEventListener("click",function(){
+                    smoeCalculation(sold,soldBtn)
+                })
+
+                if(sold=='true'){
+                    soldBtn.style.backgroundColor = "red";
+                }else{
+                    soldBtn.style.backgroundColor = "green";
+                }
+
+                cardDiv.append(image,h2Tag,p1Tag,p2Tag,p3Tag,removeBtn,soldBtn)
+
+                let AllCard = document.querySelector("#AllCard");
+                AllCard.append(cardDiv)
+
+            });
+        }
+    
+        function smoeCalculation(sold,soldBtn){
+            if(sold=='true'){
+                soldBtn.style.backgroundColor = "green";
+            }else{
+                soldBtn.style.backgroundColor = "red";
+            }
+        }
+
+        function removeFunction(index){
+            AlldataFromLS.splice(index,1)
+            localStorage.setItem("Products",JSON.stringify(AlldataFromLS));
+            window.location.reload()
+        }
+    </script>
+    
+</body>
+</html>
