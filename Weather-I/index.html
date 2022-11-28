@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEATHER I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar {
+            height: 60px;
+            box-shadow: 0px 0px 8px 3px rgb(228, 226, 226);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        #navbar>input {
+            width: 30%;
+            font-size: 18px;
+            padding: 10px;
+            outline: none;
+            border-color: #027bff;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background-color: #db3545;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            padding-bottom: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #container {
+            display: flex;
+            width: 80%;
+            margin: 50px auto;
+            justify-content: space-around;
+        }
+
+        .mapouter {
+            position: relative;
+            text-align: right;
+            height: 500px;
+            width: 600px;
+        }
+
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 500px;
+            width: 600px;
+
+        }
+
+
+    </style>
+</head>
+
+<body onload="getLocation()">
+    <div id="navbar">
+        <input type="text" placeholder="Search City" id="text">
+        <button onclick="getData()">Search</button>
+    </div>
+    <div id="container">
+        <div id="contant"></div>
+        <div id="images">
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="600" height="500" id="gmap_canvas"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    function getData() {
+        let city = document.getElementById("text").value;
+
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=8704616c895385606245a12d2efe5564`;
+
+        fetch(url).then(function (res) {
+            return res.json();
+        }).then(function (res) {
+            append(res)
+        }).catch(function (err) {
+            console.log(err);
+        })
+    }
+
+    function append(data) {
+
+        let container = document.getElementById("container");
+        let h2Tag = document.createElement("h2");
+        h2Tag.innerText = data.name;
+
+        let p1Tag = document.createElement("p");
+        p1Tag.innerText = `Min Temprature :- ${Number.parseInt(data.main.temp - 273)}°C`;
+
+        let p2Tag = document.createElement("p");
+        p2Tag.innerText = `Max Temprature :- ${Number.parseInt(data.main.temp_max)}°C`;
+
+        let p3Tag = document.createElement("p");
+        p3Tag.innerText = `Clounds :- ${data.clouds.all}`;
+
+        let p4Tag = document.createElement("p");
+        p4Tag.innerText = `Sunrise :- ${data.sys.sunrise}`;
+
+        let p5Tag = document.createElement("p");
+        p5Tag.innerText = `Sunset  :- ${data.sys.sunset}`;
+
+        let p6Tag = document.createElement("p");
+        p6Tag.innerText = `Wind  :- \n Degrees :- ${data.wind.deg} \n Speed :- ${data.wind.speed}`;
+
+        let content = document.getElementById("contant")
+        content.innerHTML = null
+        content.append(h2Tag, p1Tag, p2Tag, p3Tag, p4Tag, p5Tag, p6Tag);
+
+        content.style.width = "25%";
+        content.style.height = "300px";
+        content.style.padding = "20px";
+        content.style.boxShadow = "0 0 8px 8px rgb(249, 248, 248)";
+        content.style.borderRadius = "10px";
+
+        // Map Part
+
+        let url = `https://maps.google.com/maps?q=${data.name}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+
+        let iframe = document.getElementById("gmap_canvas");
+        iframe.src = url;
+
+        container.append(content)
+    }
+
+    // Your Current Location
+
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(success);
+
+        function success(pos) {
+            const crd = pos.coords;
+
+            console.log('Your current position is:');
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+            getWeatherLocation(crd.latitude,crd.longitude)
+        }
+    }
+    getLocation()
+
+
+    function getWeatherLocation(lat,lon) {
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8704616c895385606245a12d2efe5564`
+
+        fetch(url).then(function (res) {
+            return res.json();
+        }).then(function (res) {
+            append(res)
+            console.log(res);
+        }).catch(function (err) {
+            console.log(err);
+        })
+    }
+
+    // 
+</script>
+
+</html>
