@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COUNTRY CONTINENT DOM</title>
+</head>
+
+<body>
+    <select id="CountryOption">
+        <option value="India">India</option>
+        <option value="United States of America">United States of America</option>
+        <option value="China">China</option>
+        <option value="Nepal">Nepal</option>
+        <option value="Australia">Australia</option>
+        <option value="France">France</option>
+        <option value="Germany">Germany</option>
+        <option value="South Africa">South Africa</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Argentina">Argentina</option>
+        <option value="Brazil">Brazil</option>
+        <option value="Canada">Canada</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Sweden">Sweden</option>
+    </select>
+    <button id="clickBtn">Click Here</button>
+
+    <script>
+        let Country_Option = document.querySelector("#CountryOption");
+        let button = document.querySelector("#clickBtn");
+
+        function myfunction() {
+            let option = Country_Option.value;
+            let result = "";
+            switch (option) {
+                case "India":
+                    result = "Asia"
+                    break;
+                case "United States of America":
+                    result = "North America"
+                    break;
+                case "China":
+                    result = "Asia"
+                    break;
+                case "Nepal":
+                    result = "Asia"
+                    break;
+                case "Australia":
+                    result = "Oceania"
+                    break;
+                case "France":
+                    result = "Africa"
+                    break;
+                case "Germany":
+                    result = "Europe"
+                    break;
+                case "South Africa":
+                    result = "Africa"
+                    break;
+                case "Nigeria":
+                    result = "Africa"
+                    break;
+                case "Mexico":
+                    result = "North America"
+                    break;
+                case "Argentina":
+                    result = "South America"
+                    break;
+                case "Brazil":
+                    result = "South America"
+                    break;
+                case "Canada":
+                    result = "North America"
+                    break;
+                case "Singapore":
+                    result = "Asia"
+                    break;
+                case "Sweden":
+                    result = "Europe"
+                    break;
+
+                default:
+                    result = "Asia"
+                    break;
+            }
+            alert("The continent is " + result);
+        }
+
+
+        button.addEventListener("click", myfunction)
+
+
+
+    </script>
+</body>
+
+</html>

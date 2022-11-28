@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIN & MAX LEADERBOARD (DOM)</title>
+    <style>
+        #main {
+            width: 30%;
+            margin: 40px auto auto auto;
+        }
+
+        #div1 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #div1>div:first-child>div {
+            padding: 30px 40px;
+            font-size: 28px;
+            font-weight: bolder;
+            border: 2px solid black;
+            background-color: #fe0000;
+        }
+
+        #div1>div:last-child>div {
+            padding: 30px;
+            border: 2px solid black;
+            font-size: 28px;
+            font-weight: bolder;
+            background-color: #00aa01;
+        }
+
+        p {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 0px;
+        }
+
+        #div2 {
+            width: 70%;
+            margin: auto;
+        }
+
+        #score>p {
+            font-size: 30px;
+        }
+
+        #display {
+            border: 2px solid black;
+            font-size: 35px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 20px 0px;
+            margin-top: -25px;
+            background-color: #b3b3b3;
+            margin-bottom: 30px;
+        }
+
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+
+        }
+
+        .keyboard>div {
+            border: 2px solid black;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bolder;
+            padding: 10px 0px;
+
+        }
+
+        #div3 {
+            margin-top: 20px;
+        }
+
+        #div3>div:first-child {
+            width: 20%;
+            margin: auto;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bolder;
+            padding: 10px 0px;
+        }
+
+        #div3>div:last-child {
+            width: 70%;
+            margin: auto;
+            border: 2px solid black;
+            font-size: 23px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 10px 0px;
+            margin-top: 10px;
+            color: white;
+            background-color: black;
+            cursor:pointer;
+        }
+
+        .green {
+            background-color: #668100;
+            cursor:pointer;
+        }
+
+        .oran {
+            background-color: #ff6600;
+            cursor:pointer;
+        }
+        #zero{
+            background-color: #830066;
+            cursor:pointer;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="div1">
+            <div>
+                <div id="min">43</div>
+                <p>MIN</p>
+            </div>
+            <div>
+                <div id="max">2019</div>
+                <p>MAX</p>
+            </div>
+        </div>
+        <div id="div2">
+            <div id="score">
+                <p>Score</p>
+                <div id="display">#</div>
+            </div>
+            <div class="keyboard">
+                <div class="green">1</div>
+                <div class="oran">2</div>
+                <div class="green">3</div>
+                <div class="oran">4</div>
+                <div class="oran">5</div>
+                <div class="oran">6</div>
+                <div class="green">7</div>
+                <div class="oran">8</div>
+                <div class="green">9</div>
+            </div>
+        </div>
+
+        <div id="div3">
+            <div id="zero" class="keyboard">0</div>
+            <div id="enter">ENTER</div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        let keys = document.querySelectorAll(".keyboard");
+        let str = "";
+        for(let i = 0;i<keys.length;i++){
+            keys[i].addEventListener("click",myFunction);
+        }
+
+        function myFunction(event){
+            let targetNumber = event.target.innerText;
+            str = str + targetNumber
+            document.querySelector("#display").innerText = str;
+        }
+
+        let enter = document.querySelector("#enter").addEventListener("click",minMax);
+    
+        function minMax(event){
+        let  min = document.querySelector("#min").innerText;
+        let  max = document.querySelector("#max").innerText;
+        
+        if(Number(str)<Number(min)){
+            document.querySelector("#min").innerText = str;
+            console.log("min = ",min);
+        }else if(Number(str)>Number(max)){
+            document.querySelector("#max").innerText = str;
+            console.log("max = ",max);
+        }else{
+            min = min;
+            max = max;
+        }
+    }  
+    </script>
+</body>
+
+</html>
