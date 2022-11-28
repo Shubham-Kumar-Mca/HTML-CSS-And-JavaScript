@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIE APP-V</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #nabar {
+            height: 60px;
+            /* border: 1px solid red; */
+            box-shadow: 0px 1px 10px 5px rgb(247, 246, 246);
+
+
+        }
+
+        #nabar>button {
+            padding: 10px 20px;
+            font-size: 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 10px;
+            background-color: #008080;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #container {
+            width: 80%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        #container>div {
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 3px rgb(233, 231, 231);
+            height: 450px;
+
+        }
+
+        #container>div>button {
+            padding: 12px 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            border: none;
+            border-radius: 10px;
+            background-color: #720979;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #container>div>h2 {
+            text-align: center;
+            margin-top: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+
+        #container>div>p {
+            margin-top: 10px;
+            font-size: 20px;
+            padding-left: 20px;
+        }
+
+
+
+        #container>div>img {
+            width: 100%;
+            height: 60%;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nabar">
+        <button id="sort_lh">Sort by Low rating to High</button>
+        <button id="sort_hl">Sort by High rating to Low</button>
+    </div>
+
+    <div id="container">
+
+    </div>
+
+
+    <script>
+        let MOVIEDEtailsStore = JSON.parse(localStorage.getItem("movies")) || [];
+        // displayData(MOVIEDEtailsStore);
+
+        document.getElementById("sort_lh").addEventListener("click",sortHigh)
+        function sortHigh(){
+            MOVIEDEtailsStore.sort(function(a,b){
+                return +b.IMD_Rating - +a.IMD_Rating;
+            });
+            displayData(MOVIEDEtailsStore)
+        }
+        
+        document.getElementById("sort_hl").addEventListener("click",sortLow)
+        function sortLow(){
+            MOVIEDEtailsStore.sort(function(a,b){
+                return +a.IMD_Rating - +b.IMD_Rating;
+            });
+            displayData(MOVIEDEtailsStore)
+        }
+
+        function displayData(MOVIEDEtailsStore) {
+            document.getElementById("container").innerHTML = ""
+            MOVIEDEtailsStore.forEach(element => {
+                let divBox = document.createElement("div");
+
+                let img = document.createElement("img");
+                img.src = element.Images;
+
+                let h2Tag = document.createElement("h2");
+                h2Tag.innerText = element.Name;
+
+                let p1Tag = document.createElement("p");
+                p1Tag.innerText = `Release Date :- ${element.Release_Date}`;
+
+                let p2Tag = document.createElement("p");
+                p2Tag.innerText = `IMD Rating :- ${element.IMD_Rating}`;
+
+                let btn = document.createElement("button");
+                btn.innerText = "Book Now"
+
+                divBox.append(img, h2Tag, p1Tag, p2Tag, btn)
+
+                document.getElementById("container").append(divBox)
+
+
+            });
+        }
+
+    </script>
+</body>
+
+</html>
