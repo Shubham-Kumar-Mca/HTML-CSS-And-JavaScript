@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>U2C3 Mock</title>
+  <style>
+    #report>div{
+      padding: 0 20px 20px 20px ;
+      box-shadow: 0 0 10px 5px rgb(240, 238, 238);
+    }
+
+    form{
+      width: 25%;
+      margin: auto;
+      margin-top: 50px;
+      background-color: #5763ee;
+      padding: 40px 50px;
+    }
+    input[type="number"]{
+      width: 91%;
+      padding: 15px;
+      font-size: 15px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      background-color: #f2f2f2;
+      border: 0px solid transparent;
+      outline: none;
+    }
+    input[type="submit"],select{
+      width: 100%;
+      padding: 15px;
+      font-size: 15px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      background-color: #f2f2f2;
+      border: 0px solid transparent;
+      outline: none;
+      
+    }
+    input[type="submit"]{
+      background-color: #28a645;
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <select id="month">
+      <option value="January">JANUARY</option>
+      <option value="February">FEBRUARY</option>
+      <option value="MARCH">MARCH</option>
+      <option value="APRIL">APRIL</option>
+      <option value="MAY">MAY</option>
+      <option value="JUNE">JUNE</option>
+      <option value="JULY">JULY</option>
+      <option value="AUGUST">AUGUST</option>
+      <option value="SEPETEMBER">SEPETEMBER</option>
+      <option value="OCTOBER">OCTOBER</option>
+      <option value="NOVEMBER">NOVEMBER</option>
+      <option value="DECEMBER">DECEMBER</option>
+    </select><br>
+
+    <input id="income" type="number" placeholder="Enter Income" /><br>
+
+    <input id="expense" type="number" placeholder="Enter expense" /><br>
+
+    <input type="submit" />
+  </form>
+
+  <div id="report">
+    <!-- Append your cards here -->
+  </div>
+</body>
+
+</html>
+
+<script>
+  document.querySelector("form").addEventListener("submit",cardReport);
+
+  function cardReport(event){
+    event.preventDefault()
+    let monthName = document.querySelector("#month").value;
+    let income = Number(document.querySelector("#income").value);
+    let expense = Number(document.querySelector("#expense").value);
+
+    let inDiv = document.createElement("div");
+  
+
+    let h1 = document.createElement("h1");
+    h1.innerText = monthName;
+    
+    let p1 = document.createElement("p");
+    p1.innerText = income;
+    
+    let p2 = document.createElement("p");
+    p2.innerText = expense;
+    
+    let p3 = document.createElement("p");
+    if(income < expense ){
+      p3.innerText = "DEBT";
+      p3.style.color = "red";
+    }else if(income > expense ){
+      p3.innerText = "SAVE";
+      p3.style.color = "green";
+    }else{
+      p3.innerText = "BREAKEVEN";
+      p3.style.color = "orange";
+    }
+
+
+    let btn = document.createElement("button");
+    btn.innerText = "DELETE"
+    btn.addEventListener("click",removeCard);
+
+
+    inDiv.append(h1,p1,p2,p3,btn);
+
+    let repo = document.querySelector("#report");
+    repo.append(inDiv)
+
+    repo.style.width = "80%";
+    repo.style.margin = "50px auto auto auto";
+    repo.style.display = "grid";
+    repo.style.gridTemplateColumns = "repeat(3, 1fr)";
+    // repo.style.gridTemplaterows = "repeat(4, 1fr)";
+    repo.style.gap = "20px"
+
+
+    function removeCard(){
+      inDiv.remove()
+    }
+
+  }
+
+</script>

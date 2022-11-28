@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM BUTTONS WITHOUT HTML</title>
+    <style>
+        button{
+            margin-right: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+
+
+    <script>
+        let btn = [
+            {name:"Primary", bgColor :"#027bff" ,color:"White"},
+            {name:"Secondary", bgColor :"#6c757d" ,color:"White"},
+            {name:"Success", bgColor :"#28a645" ,color:"White"},
+            {name:"Danger", bgColor :"#db3545" ,color:"White"},
+            {name:"Warning", bgColor :"#ffbf09" ,color:"blck"},
+            {name:"Info", bgColor :"#18a2b9" ,color:"White"},
+            {name:"Light", bgColor :"#f8f9fa" ,color:"black"},
+            {name:"Dark", bgColor :"#343a40" ,color:"White"},
+            {name:"Link", bgColor :"#fffefe" ,color:"#047bff"},
+        ];
+
+        //This is the First method from for loop
+
+       /* for(let i = 0;i < btn.length; i++){
+            let createButton = document.createElement("button");
+            document.querySelector("body").append(createButton);
+            createButton.innerText = btn[i].name
+            createButton.style.background = btn[i].bgColor;
+            createButton.style.color = btn[i].color;
+            createButton.style.border = "1px solid transparent";
+            createButton.style.borderRadius = "5px";
+            createButton.style.fontSize = "15px";
+
+        }*/
+
+        //This is the Second method from forEach loop
+        
+        btn.forEach(function (element) {
+            let buttEle = document.createElement("button");
+            document.querySelector("body").append(buttEle);
+            buttEle.innerText = element.name;
+            buttEle.style.backgroundColor = element.bgColor;
+            buttEle.style.color = element.color;
+            buttEle.style.border = "1px solid transparent";
+            buttEle.style.padding = "10px 15px";
+            buttEle.style.fontSize = "20px";
+            buttEle.style.borderRadius = "5px";
+        })
+    </script>
+</body>
+</html>
