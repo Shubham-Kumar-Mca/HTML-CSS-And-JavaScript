@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUTUBE MINI APP II</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #f9f9f9;
+        }
+        #navbar{
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 0 5px 2px rgb(227, 226, 226);
+        }
+        .flex{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #navbar>div:first-child{
+            width: 15%;
+            margin-left: 20px;
+        }
+        #navbar>div>div:first-child>img{
+            width: 30px;
+            cursor: pointer;
+        }
+        #navbar>div>div:last-child>img{
+            width: 100px;
+            cursor: pointer;
+        }
+        .secondDiv{
+            width: 45%;
+        }
+        .secondDiv>div>div:last-child>button>img{
+            width: 20px;
+        }
+        .insidSecond{
+            width: 80%;
+        }
+        .insidSecond{
+            display: flex;
+            justify-content: space-between;
+        }
+        .insidSecond>div:first-child{
+            width:88%;
+        }
+        .insidSecond>div:first-child>input{
+            width: 95%;
+            padding: 8px;
+            font-size: 16px;
+            outline-color:blue;
+            
+        }
+        .insidSecond>div:last-child>button{
+            padding: 5.5px 20px;
+            cursor: pointer;
+            margin-left: -20px;
+        }
+        .secondDiv>img{
+            width: 40px;
+            border-radius: 50%;
+            margin-left: -20px;
+            cursor: pointer;
+        }
+        #navbar>div:last-child{
+            width: 20%;
+        }
+        #navbar>div:last-child>div>img{
+            width: 30px;
+            cursor: pointer;
+        }
+        #navbar>div:last-child>div:last-child>img{
+            border-radius: 50%;
+        }
+        #container{
+            width:90%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: repeat(5,1fr);
+            grid-gap: 10px;
+            margin-top: 30px;
+        }
+        #container>div>img{
+            width: 100%;
+        }     
+    </style>
+</head>
+<body>
+    
+    <div id="navbar">
+        <div class="flex">
+            <div>
+                <img src="images/menu.png" alt="">
+            </div>
+            <div>
+                <img src="images/youtube_logo-1.png" alt="">
+            </div>
+        </div>
+
+        <div  class="flex secondDiv">
+            <div class="insidSecond">
+               <div> 
+                    <input type="text" placeholder="Search" id="query">
+                </div>
+                <div>
+                    <button onclick="search()">
+                        <img src="images/search.png" alt="">
+                    </button>
+                </div>
+            </div>
+            <img src="images/mic_Image.png" alt="">
+
+        </div>
+
+        <div  class="flex">
+            <div><img src="images/upload.png" alt=""></div>
+            <div><img src="images/more.png" alt=""></div>
+            <div><img src="images/notification.png" alt=""></div>
+            <div><img src="images/shubham.jpg" alt=""></div>
+        </div>
+    </div>
+
+    <div id="container"></div>
+    
+
+
+    <script>
+        const API_Key = "AIzaSyCtvGweT4USdbaM69zOkp48K9xX-ybpQo8";
+
+        let getData = async (query)=>{
+            const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=in&key=AIzaSyCtvGweT4USdbaM69zOkp48K9xX-ybpQo8`;
+            let res = await fetch(url);
+            let data = await res.json();
+            append(data.items)
+            console.log(data.items)
+        }
+        getData()
+
+        let append = (data)=>{
+            let container = document.getElementById("container");
+            container.innerHTML = null
+            data.forEach(element => {
+                let img = document.createElement("img");
+                img.src = element.snippet.thumbnails.medium.url;
+
+                let h2Tag = document.createElement("h3")
+                h2Tag.innerText = element.snippet.title;
+
+                let div = document.createElement("div");
+                div.append(img,h2Tag);
+                div.onclick = ()=>{
+                    saveVideo(element)
+                }
+
+                container.append(div);
+                
+            });
+        }
+
+        let saveVideo = (data)=>{
+            localStorage.setItem("video",JSON.stringify(data));
+            window.location.href = "video.html"
+        }
+    </script>
+</body>
+</html>
+
