@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMDB MOVIE APP I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar {
+            height: 60px;
+            box-shadow: 0px 0px 8px 3px rgb(228, 226, 226);
+            display: grid;
+        }
+
+        #navbar>input {
+            width: 30%;
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            outline: none;
+            border-color: #027bff;
+            border-radius: 10px;
+        }
+
+        #display {
+            width: 80%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        #display>div {
+            box-shadow: 0px 0px 8px 3px rgb(228, 226, 226);
+            height: 470px;
+            border-radius: 10px;
+        }
+
+        #display>div>img {
+            width: 100%;
+            height: 60%;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            padding-bottom: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #display>div>p:last-child {
+            padding-bottom: 20px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+        <input type="text" oninput="main()" placeholder="Search Movie Enter Any Movie Name" id="text">
+    </div>
+
+    <div id="display"></div>
+
+
+
+
+    <script>
+        async function main() {
+            let query = document.getElementById("text").value;
+            getData(query);
+            // append(data)
+        }
+
+        async function getData(query) {
+            let url = `https://www.omdbapi.com/?apikey=422a99fa&s=${query}`;
+            try {
+                let resolve = await fetch(url);
+                let data = await resolve.json();
+                append(data.Search)
+            }catch(err){
+                console.log("hello")
+            }
+        }
+
+        function append(data) {
+            if (!data) {
+                return;
+            }
+            let container = document.getElementById("display");
+            container.innerHTML = null
+
+            data.forEach(element => {
+                let div = document.createElement("div");
+
+                let img = document.createElement("img");
+                img.src = element.Poster
+
+                let h2Tag = document.createElement("h2");
+                h2Tag.innerText = element.Title;
+
+                let p1Tag = document.createElement("p");
+                p1Tag.innerText = `Year is :- ${element.Year}`;
+
+                let p2Tag = document.createElement("p");
+                p2Tag.innerText = `IMDB ID :- ${element.imdbID}`;
+
+                let p3Tag = document.createElement("p");
+                p3Tag.innerText = `Type :- ${element.Type}`;
+
+                div.append(img, h2Tag, p3Tag, p1Tag, p2Tag);
+                container.append(div);
+
+            });
+        }
+    </script>
+
+</body>
+
+</html>
