@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP AND LOGIN USING LS</title>
+    <style>
+        form {
+            margin: 0 auto;
+            margin-top: 30px;
+            width: 30%;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        label {
+            font-size: 20px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 25px;
+            resize: vertical;
+            font-size: 16px;
+            background-color: #e8f0fe;
+        }
+
+        input[type="submit"] {
+            background-color: #2b619e;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        div{
+            display: flex;
+            justify-content: center;
+        }
+        h2{
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+        form>div{
+            display: flex;
+            justify-content: space-between;
+        }
+        form>div>label:last-child{
+            color: blue;
+        }
+        form>button{
+            padding: 8px 80px;
+            border-radius: 8px;
+            border: 1px solid gray;
+            background-color: white;
+            cursor: pointer;
+        }
+        form>button>label{
+            font-size: 16px;
+            margin-left: 15px;
+        }
+        label{
+            font-size: 18px;
+        }
+        p{
+            margin-top: 50px;
+            font-size: 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+        form>button+p>a{
+            text-decoration: none;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="https://sso.masaischool.com/brand_dark.svg" alt="">
+    </div>
+    <form>
+        <h2>Sing In</h2>
+        <label for="">Email</label>
+        <input type="email" id="email" placeholder="Enter email"><br>
+        <div>
+            <label>Password</label>
+            <label>Forgot Password?</label>
+        </div>
+        <input type="password" id="password" placeholder="Enter password">
+        <input type="submit" value="SIGN IN">
+        <button>
+            <img src="https://sso.masaischool.com/google.svg" alt=""><label>CONTINUE WITH GOOGLE</label>
+        </button>
+        <p>Don't have an account? <a href="singUpPage.html">Sign Up</a></p>
+
+    </form>
+
+    <script>
+        document.querySelector("form").addEventListener("submit",displayData)
+        
+        let getUserData =  JSON.parse(localStorage.getItem("singUp")) || [];
+        function displayData(event){
+            event.preventDefault();
+            let isTrue = false;
+            let Email = document.querySelector("#email").value;
+            let Password = document.querySelector("#password").value;
+            
+            getUserData.forEach(element => {
+                let EmailPri = element.email;
+                let PasswordPri = element.password;
+
+                if(EmailPri == Email && PasswordPri == Password){
+                    isTrue = true;
+                }
+            });
+
+            if(isTrue){
+                alert("Login Successfully")
+            }else{
+                alert("Please Check Your Email Id and Password")
+            }
+        }
+    </script>
+</body>
+
+</html>
