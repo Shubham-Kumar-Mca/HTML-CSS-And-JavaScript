@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD PORDUCT</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #navbar{
+            height: 60px;
+            border: 1px solid red;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding: 0 40px;
+            gap: 20px;
+            background-color: aquamarine;
+        }
+        #navbar>h3>a{
+            text-decoration: none;
+            color: #222a76;
+        }
+        #product-form {
+            width: 90%;
+            margin: auto;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        #product-form>div>form {
+            width: 70%;
+            margin: auto;
+            margin-top: 50px;
+            padding: 30px 50px;
+            box-shadow: 0 1px 10px 3px rgb(245, 242, 242);
+            border-radius: 10px;
+        }
+
+        #product-form>div>form>input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 3px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin-top: -10px;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #db3545;
+            width: 100%;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        
+
+        
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+        <h3><a href="/frontend/Singup.html">Singup</a></h3>
+        <h3><a href="/frontend/Login.html">Login</a></h3>
+    </div>
+    <div id="product-form">
+        <div>
+            <form>
+                <h1>Add Product</h1>
+                <input type="number" id="id" placeholder="Enter Product Id"><br>
+                <input type="text" id="name" placeholder="Enter Product Name"><br>
+                <input type="number" id="price" placeholder="Enter Product Price"><br>
+                <button onclick="addProduct()">Add</button>
+            </form>
+        </div>
+
+        <div>
+            <form>
+                <h1>Update Product</h1>
+                <input type="number" id="update_id" placeholder="Enter Product Id"><br>
+                <button onclick="updateProduct()">Update</button>
+            </form>
+        </div>
+
+        <div>
+            <form>
+                <h1>Delete Product</h1>
+                <input type="text" id="delete_id" placeholder="Enter Product Id">
+                <button onclick="deleteProduct()">Delete</button>
+            </form>
+        </div>
+        
+        
+    </div>
+
+
+
+    <script>
+        function x(id){
+            return document.getElementById(id).value;
+        }
+        async function addProduct() {
+            let product_data = {
+                id: x("id"),
+                name: x("name"),
+                price: x("price"),
+            };
+            product_data = JSON.stringify(product_data);
+            let responce = await fetch("http://127.0.0.1:3000/api/Product", {
+                method: 'POST',
+                body: product_data,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            console.log(responce);
+        }
+
+        async function deleteProduct(){
+            let id = document.getElementById("delete_id").value;
+            let responce = await fetch(`http://127.0.0.1:3000/api/Product/${id}`,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type' : 'application/json',
+                }
+            });
+            let data = await responce.json();
+        }
+
+        async function updateProduct(){
+            let id = document.getElementById("update_id").value;
+
+            let responce = await fetch(`http://127.0.0.1:3000/api/Product/${id}`, {
+                method:'PATCH',
+                body: JSON.stringify({
+                    name: "Kitkat",
+                    // price: 5000000,
+                }),
+                headers:{
+                    'Content-Type':'application/json',
+                }
+            });
+            let data = await responce.json()
+        }
+    </script>
+</body>
+
+</html>
