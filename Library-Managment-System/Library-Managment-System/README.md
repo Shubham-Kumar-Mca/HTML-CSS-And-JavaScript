@@ -1,4 +1,4 @@
-# WEB - Masai Library Management App
+# WEB - Library Management App
 
 ## Submission Instructions [Please note]
 
@@ -116,8 +116,4 @@
 - The table columns are same as the My Books Page.
 #### Refer to this image for better understanding:-
 ![alt text](https://i.imgur.com/YDDioy9.png)
-#### General guidelines:-
-- The system on cp.masaischool.com may take between 1-20 minutes for responding,
-- so we request you to read the problem carefully and debug it before itself
-- we also request you not just submit it last minute
-- try to keep one submission at a time.
+
