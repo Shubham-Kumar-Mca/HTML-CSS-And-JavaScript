@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Page</title>
+    <style>
+      /* All Your css for Order page goes here  */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        height: 70px;
+        box-shadow: 0 0 3px 3px rgb(199, 199, 199);
+        margin-bottom: 2rem;
+      }
+      .nav > div > a {
+        font-size: 22px;
+        margin-left: 25px;
+      }
+      #total {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      #cupon {
+        width: 25%;
+        margin: auto;
+        margin-bottom: 1rem;
+      }
+      #cupon input {
+        padding: 7px;
+      }
+      #cupon button {
+        padding: 8px 20px;
+        cursor: pointer;
+      }
+      #order-container {
+        box-sizing: border-box;
+        width: 95%;
+        margin: auto;
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      #order-container > div {
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px 0px rgb(208, 208, 208);
+      }
+      #order-container > div > img {
+        width: 100%;
+        height: 280px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      #order-container > div > p:nth-child(2) {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <h1>Web Coffee Shop Menu</h1>
+      <div>
+        <a href="./index.html">Home</a>
+        <a href="./order.html">Ordered</a>
+      </div>
+    </div>
+    <h1 id="total">
+      Your total order value is :- <span id="order-total">0</span>
+    </h1>
+    <div id="cupon">
+      <input type="text" />
+      <button>Add Cupon</button>
+    </div>
+    <div id="order-container">
+      <!-- Here Append All the Order Cards here-->
+    </div>
+  </body>
+  <script>
+    // All your JS code for Order Page goes here
+
+    var CoffeeDataFromLS = JSON.parse(localStorage.getItem("buy")) || [];
+
+    let singlPric = 0;
+
+    displayData(CoffeeDataFromLS);
+    function displayData(Data) {
+      let x = 1;
+      let menuContainer = document.getElementById("order-container");
+      Data.forEach((element, index) => {
+        let firstDiv = document.createElement("div");
+
+        let imgTag = document.createElement("img");
+        imgTag.src = element.image;
+
+        let h2Tag = document.createElement("h2");
+        h2Tag.innerText = element.title;
+
+        let divTag = document.createElement("div");
+
+        element.ingredients.forEach((ele) => {
+          let p4Tag = document.createElement("p");
+          p4Tag.innerText = ele;
+          divTag.append(p4Tag);
+        });
+
+        divTag.style.display = "flex";
+        divTag.style.marginTop = "10px";
+        divTag.style.alignItems = "center";
+        divTag.style.justifyContent = "space-between";
+
+        let p2Tag = document.createElement("p");
+        p2Tag.innerText = element.description;
+        p2Tag.style.marginTop = "15px";
+        p2Tag.style.textAlign = "justify";
+
+        let p3Tag = document.createElement("p");
+        p3Tag.innerText = `₹ ${element.price}`;
+        p3Tag.style.fontSize = "16px";
+        p3Tag.style.fontWeight = "bold";
+        p3Tag.style.marginTop = "-5px";
+
+        singlPric = singlPric + element.price;
+
+        let secondDiv = document.createElement("div");
+        secondDiv.append(p2Tag);
+        secondDiv.style.height = "120px";
+
+        let buttonDiv = document.createElement("div");
+        buttonDiv.style.display = "flex";
+        buttonDiv.style.alignItems = "center";
+        buttonDiv.style.marginTop = "10px";
+
+        let btn3 = document.createElement("button");
+        btn3.innerText = "Remove";
+        btn3.style.marginLeft = "10px";
+        btn3.style.padding = "8px 20px";
+        btn3.style.cursor = "pointer";
+        btn3.style.display = "block";
+        btn3.style.marginLeft = "auto";
+        btn3.style.marginRight = "auto";
+        btn3.addEventListener("click", () => DeleteData(element, index));
+
+        buttonDiv.append(btn3);
+
+        firstDiv.append(imgTag, h2Tag, divTag, secondDiv, p3Tag, buttonDiv);
+        menuContainer.append(firstDiv);
+        document.getElementById("order-total").innerText = singlPric;
+      });
+    }
+
+    document
+      .getElementsByTagName("button")[0]
+      .addEventListener("click", AddCupone);
+    function AddCupone() {
+      if (document.getElementsByTagName("input")[0].value === "LeloDiscount30") {
+        alert("Congratulation You Get 30% Discount");
+        singlPric = (singlPric * 30) / 100;
+      }
+      document.getElementById("order-total").innerText = singlPric;
+    }
+
+    function DeleteData(element, index) {
+      const filterData = CoffeeDataFromLS.filter((_, i) => i !== index);
+      localStorage.setItem("buy", JSON.stringify(filterData));
+      window.location.reload();
+    }
+  </script>
+</html>

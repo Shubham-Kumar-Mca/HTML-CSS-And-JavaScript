@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <style>
+      /* All Your css for Home page goes here  */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        height: 70px;
+        box-shadow: 0 0 3px 3px rgb(199, 199, 199);
+        margin-bottom: 2rem;
+      }
+      .nav > div > a {
+        font-size: 22px;
+        margin-left: 25px;
+      }
+      #filter {
+        width: 32%;
+        margin: auto;
+        padding: 22px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 3px 3px rgb(223, 222, 222);
+      }
+      #filter input,
+      select {
+        padding: 7px;
+        outline: none;
+      }
+      select {
+        margin-left: 40px;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      #filter button {
+        padding: 10px 30px;
+        margin-top: 10px;
+        cursor: pointer;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        background-color: #db3545;
+        color: #fff;
+      }
+      #filter > div {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      #menu-container {
+        box-sizing: border-box;
+        width: 95%;
+        margin: auto;
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      #menu-container > div {
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px 0px rgb(208, 208, 208);
+      }
+      #menu-container > div > img {
+        width: 100%;
+        height: 280px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      #menu-container > div > p:nth-child(2) {
+        font-weight: bold;
+        font-size: 20px;
+      }
+      #menu-container button {
+        padding: 10px 30px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+        border: none;
+        background-color: rgb(82, 198, 244);
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      #alert {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav">
+      <h1>Web Coffee Shop Menu</h1>
+      <div>
+        <a href="./index.html">Home</a>
+        <a href="./order.html">Ordered</a>
+      </div>
+    </div>
+    <div id="filter">
+      <!-- <div>
+        <h2>Filter By Price Range</h2>
+      </div> -->
+      <input type="number" id="lower" placeholder="Plaese Enter Lower Value" />
+      <input type="number" id="upper" placeholder="Plaese Enter Upper Value" />
+      <button id="filter-btn">Filter</button>
+    </div>
+    <select id="sort">
+      <option value="">Sort By Price</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+    <h1 id="alert"></h1>
+    <div id="menu-container">
+      <!-- Here Append All the Items  -->
+    </div>
+  </body>
+  <script>
+    // All your JS code for Home Page goes here
+
+    var CoffeeData = JSON.parse(localStorage.getItem("buy")) || [];
+
+    const url = `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-coffee`;
+    async function getData() {
+      try {
+        let res = await fetch(url);
+        let data = await res.json();
+        appendData(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+    let daata;
+
+    function appendData(AllData) {
+      let menuContainer = document.getElementById("menu-container");
+      menuContainer.innerHTML = " ";
+
+      daata = AllData;
+
+      daata.forEach((element, index) => {
+        let firstDiv = document.createElement("div");
+
+        let imgTag = document.createElement("img");
+        imgTag.src = element.image;
+
+        let h2Tag = document.createElement("h2");
+        h2Tag.innerText = element.title;
+
+        let divTag = document.createElement("div");
+
+        element.ingredients.forEach((ele) => {
+          let p4Tag = document.createElement("p");
+          p4Tag.innerText = ele;
+          divTag.append(p4Tag);
+        });
+
+        divTag.style.display = "flex";
+        divTag.style.marginTop = "10px";
+        divTag.style.alignItems = "center";
+        divTag.style.justifyContent = "space-between";
+
+        let p2Tag = document.createElement("p");
+        p2Tag.innerText = element.description;
+        p2Tag.style.marginTop = "15px";
+        p2Tag.style.textAlign = "justify";
+
+        let p3Tag = document.createElement("p");
+        p3Tag.innerText = `₹ ${element.price}`;
+        p3Tag.style.fontSize = "16px";
+        p3Tag.style.fontWeight = "bold";
+        p3Tag.style.marginTop = "-5px";
+
+        let secondDiv = document.createElement("div");
+        secondDiv.append(p2Tag);
+        secondDiv.style.height = "120px";
+
+        let buttonTag = document.createElement("button");
+        buttonTag.innerText = "Buy";
+        buttonTag.addEventListener("click", () => BuyingCoffee(element, index));
+
+        firstDiv.append(imgTag, h2Tag, divTag, secondDiv, p3Tag, buttonTag);
+        menuContainer.append(firstDiv);
+      });
+
+      //Buying Coffee Functionality
+      function BuyingCoffee(element, index) {
+        if (CoffeeData.includes(element)) {
+          alert("Already Placed Order");
+          document.getElementById("alert").innerText = " ";
+        } else {
+          document.getElementById("alert").innerText =
+            "Successfully Placed Order";
+          CoffeeData.push(element);
+          localStorage.setItem("buy", JSON.stringify(CoffeeData));
+        }
+      }
+    }
+
+    //Sorting with assending or decending
+    document.getElementById("sort").addEventListener("change", sortingFunction);
+    async function sortingFunction() {
+      let sortingVal = document.getElementById("sort").value;
+      if (sortingVal === "asc") {
+        try {
+          let res = await fetch(
+            "https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-coffee?sort=price&order=asc"
+          );
+          let data = await res.json();
+          appendData(data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          let res = await fetch(
+            "https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-coffee?sort=price&order=desc"
+          );
+          let data = await res.json();
+          appendData(data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    //Filtering Data
+    document.getElementById("filter-btn").addEventListener("click", filterData);
+    function filterData() {
+      let firstValue = Number(document.getElementById("lower").value);
+      let secondValue = Number(document.getElementById("upper").value);
+
+      const AfterFilteringData = daata.filter((ele) => {
+        return ele.price >= firstValue && ele.price <= secondValue;
+      });
+
+      appendData(AfterFilteringData);
+    }
+  </script>
+</html>
